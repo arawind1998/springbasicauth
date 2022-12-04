@@ -1,10 +1,8 @@
-package com.sri.springbasicauth.controller;
-
-import com.sri.springbasicauth.model.Application;
+package com.sri.springbasicauth.model;
 
 import java.util.List;
 
-public class Topic {
+public class ApplicationResultsInfo {
     private List<Application> applicationList;
 
     public List<Application> getApplicationList() {

@@ -2,13 +2,9 @@ package com.sri.springbasicauth.controller;
 
 import com.sri.springbasicauth.Validator;
 import com.sri.springbasicauth.model.Application;
-import org.springframework.http.RequestEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sri.springbasicauth.model.ApplicationResultsInfo;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -20,10 +16,9 @@ public class ApplicationController {
     }
 
     @PostMapping("/application")
-    public Application createApplication(Application application) {
+    public Application createApplication(@RequestBody Application application) {
 
         Validator Validator = new Validator();
-        //return Validator.validate_ssn(application.getSSN());
         application.setSSN_b(Validator.validate_ssn(application.getSSN()));
         application.setEmail_b(Validator.validate_email(application.getEmail()));
         application.setFirstName_b(Validator.validate_username(application.getFirstName()));
@@ -31,37 +26,27 @@ public class ApplicationController {
 
     }
 
-
-
-
-
-    @PostMapping("/application2")
-    public Topic createApplication3(Topic topic) {
+    @PostMapping("/applicationresults")
+    public ApplicationResultsInfo createApplication3(@RequestBody ApplicationResultsInfo applicationResultsInfo) {
 
         Validator Validator = new Validator();
-        //return Validator.validate_ssn(application.getSSN());
-
-        for(Application application2:topic.getApplicationList()) {
-
+        for(Application application2: applicationResultsInfo.getApplicationList()) {
             application2.setSSN_b(Validator.validate_ssn(application2.getSSN()));
             application2.setEmail_b(Validator.validate_email(application2.getEmail()));
             application2.setFirstName_b(Validator.validate_username(application2.getFirstName()));
         }
-         return topic;
-
+         return applicationResultsInfo;
     }
 
+    @PostMapping("/applications")
+    public List<Application> createApplication(@RequestBody List<Application> applicationList) {
+        Validator Validator = new Validator();
+        for(Application application:applicationList) {
+            application.setSSN_b(Validator.validate_ssn(application.getSSN()));
+            application.setEmail_b(Validator.validate_email(application.getEmail()));
+            application.setFirstName_b(Validator.validate_username(application.getFirstName()));
+        }
+        return applicationList;
 
-
-
-    /*@PostMapping("/topic")
-    public List<Topic> createApplication5() {
-
-        return Arrays.asList(
-                new Topic("Srikanth", "Srinivasan", 16);
-        );
-
-    }*/
-
-
+    }
 }

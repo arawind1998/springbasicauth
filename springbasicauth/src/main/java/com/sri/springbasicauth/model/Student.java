@@ -1,4 +1,4 @@
-package com.sri.springbasicauth.controller;
+package com.sri.springbasicauth.model;
 
 public class Student {
     private String empname;
